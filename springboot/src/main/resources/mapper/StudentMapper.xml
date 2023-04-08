@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace=绑定一个对应的mapper接口-->
+<mapper namespace="com.example.springboot.mapper.StudentMapper">
+    <!--新增或者更新-->
+    <update id="update">
+        update student
+        <set>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test=" subject != null and  subject != ''">
+                subject = #{subject},
+            </if>
+            <if test=" nature != null and  nature != ''">
+                nature = #{nature},
+            </if>
+            <if test=" intention != null and  intention != ''">
+                intention = #{intention},
+            </if>
+            <if test=" email != null and  email != ''">
+                email = #{email},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone=#{phone}
+            </if>
+        </set>
+        where id = #{id};
+    </update>
+
+
+
+</mapper>
