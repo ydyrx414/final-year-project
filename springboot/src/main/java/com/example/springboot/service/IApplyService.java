@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface IApplyService {
     ApplyVO apply(int studentId, int jobId);
+    void deleteOne(int jobId);
     List<ApplyVO> invite(int[] studentIds,int jobId);
     PageVO<ApplyVO> query( ApplicationQueryDTO dto);
 }

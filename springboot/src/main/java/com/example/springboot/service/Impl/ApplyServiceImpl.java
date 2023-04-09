@@ -81,6 +81,11 @@ public class ApplyServiceImpl implements IApplyService {
     }
 
     @Override
+    public void deleteOne(int jobId) {
+        mapper.deleteById(jobId);
+    }
+
+    @Override
     public List<ApplyVO> invite(int[] studentIds, int jobId) {
         List<ApplyVO> vos = new ArrayList<>(studentIds.length);
         for (int id : studentIds) {
@@ -113,7 +118,7 @@ public class ApplyServiceImpl implements IApplyService {
             qw.eq(VApplication::getJobId, dto.getJobId());
         }
 
-        if(IntegerHelper.isValid(dto.getCorporationId())){
+        if (IntegerHelper.isValid(dto.getCorporationId())) {
             qw.eq(VApplication::getCorpId, dto.getCorporationId());
         }
 

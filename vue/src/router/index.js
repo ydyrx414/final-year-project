@@ -28,6 +28,13 @@ const routes = [
         }
       },
       {
+        path: 'application',
+        component: () => import(/* webpackChunkName: "about" */ '../components/Application.vue'),
+        meta: {
+          title: '申请管理'
+        }
+      },
+      {
         path: 'student',
         component: () => import(/* webpackChunkName: "about" */ '../views/admin/StudentList.vue'),
         meta: {

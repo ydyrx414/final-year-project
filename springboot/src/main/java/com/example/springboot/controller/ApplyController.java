@@ -29,6 +29,12 @@ public class ApplyController {
         return Result.success(applyService.query(dto));
     }
 
+    @DeleteMapping("{job_id}")
+    public Result<Void> deleteOne(@PathVariable(name = "job_id") int jobId){
+        applyService.deleteOne(jobId);
+        return Result.success();
+    }
+
     @PostMapping("{job_id}")
     public Result<ApplyVO> apply(
             @PathVariable(name = "job_id") int jobId

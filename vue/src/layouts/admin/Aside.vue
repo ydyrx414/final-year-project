@@ -10,6 +10,11 @@
         <span slot="title">主页</span>
       </template>
     </el-menu-item>
+        <el-menu-item index="/admin/application">
+        <template slot="title"><i class="el-icon-house"></i>
+          <span slot="title">申请管理</span>
+        </template>
+      </el-menu-item>
 
     <el-submenu index="2">
       <template slot="title"><i class="el-icon-user"></i>
@@ -31,10 +36,6 @@
         <i class="el-icon-s-custom"></i>
         <span slot="title">学生名单管理</span>
       </el-menu-item>
-      <el-menu-item index="2-1">
-        <i class="el-icon-house"></i>
-        <span slot="title">学生意向管理</span>
-      </el-menu-item>
     </el-submenu>
 
     <el-submenu index="3">
@@ -44,10 +45,6 @@
       <el-menu-item index="/admin/corporation">
         <i class="el-icon-s-custom"></i>
         <span slot="title">公司名单管理</span>
-      </el-menu-item>
-      <el-menu-item index="2-1">
-        <i class="el-icon-house"></i>
-        <span slot="title">公司邀请管理</span>
       </el-menu-item>
       <el-menu-item index="/admin/jobs">
         <i class="el-icon-house"></i>
