@@ -15,11 +15,11 @@
         </div>
 
         <div style="margin: 10px 0;">
-            <el-button type="primary" @click="handleAdd">新增 <i class="el-icon-circle-plus-outline"></i></el-button>
-            <el-popconfirm class="ml-5" confirm-button-text='确定' cancel-button-text='取消' icon="el-icon-info"
+            <!-- <el-button type="primary" @click="handleAdd">新增 <i class="el-icon-circle-plus-outline"></i></el-button> -->
+            <!-- <el-popconfirm class="ml-5" confirm-button-text='确定' cancel-button-text='取消' icon="el-icon-info"
                 icon-color="red" title="您确定批量删除这些数据吗？" @confirm="delBatch">
                 <el-button type="danger" slot="reference">批量删除 <i class="el-icon-remove-outline"></i></el-button>
-            </el-popconfirm>
+            </el-popconfirm> -->
         </div>
 
         <el-table :data="tableData" border stripe @selection-change="handleSelectionChange">
@@ -131,20 +131,20 @@ export default {
 
         },
 
-        save() {
-            Request.post("/student", this.form).then(res => {
-                if (res) {
-                    this.$message.success("保存成功")
-                    this.dialogFormVisible = false
-                    this.load()
-                } else {
-                    this.$message.error("保存失败")
-                }
-            })
+        async save() {
+            const registerResult = await Request.post("/student", this.form);
+            const modifyPwd = await Request.post("/student", this.form);
+              if (modifyPwd) {
+                this.$message.success("保存成功")
+                this.dialogFormVisible = false
+                this.load()
+            } else {
+                this.$message.error("保存失败")
+            }
         },
 
         del(id) {
-            Request.delete("/student/" + id).then(res => {
+            Request.delete("/user/" + id).then(res => {
                 if (res) {
                     this.$message.success("删除成功")
                     this.load()

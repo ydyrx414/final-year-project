@@ -11,22 +11,22 @@
         </div>
 
         <div style="margin: 10px 0;">
-            <el-button type="primary" @click="handleAdd">新增 <i class="el-icon-circle-plus-outline"></i></el-button>
-            <el-popconfirm class="ml-5" confirm-button-text='确定' cancel-button-text='取消' icon="el-icon-info"
+            <!-- <el-button type="primary" @click="handleAdd">新增 <i class="el-icon-circle-plus-outline"></i></el-button> -->
+            <!-- <el-popconfirm class="ml-5" confirm-button-text='确定' cancel-button-text='取消' icon="el-icon-info"
                 icon-color="red" title="您确定批量删除这些数据吗？" @confirm="delBatch">
                 <el-button type="danger" slot="reference">批量删除 <i class="el-icon-remove-outline"></i></el-button>
-            </el-popconfirm>
+            </el-popconfirm> -->
         </div>
 
         <el-table :data="tableData" border stripe @selection-change="handleSelectionChange">
             <el-table-column type="selection" width="55">
             </el-table-column>
             <el-table-column prop="id" label="id" width="200"></el-table-column>
-            <el-table-column prop="username" label="用户名" width="300"></el-table-column>
-            <el-table-column prop="nickname" label="名称" width="300"></el-table-column>
+            <el-table-column prop="username" fixed="left" label="用户名"></el-table-column>
+            <el-table-column prop="nickname" label="昵称" width="100"></el-table-column>
             <el-table-column prop="phone" label="手机号码" width="300"></el-table-column>
-            <el-table-column prop="email" label="邮箱"></el-table-column>
-            <el-table-column label="操作" width="200" align="center">
+            <el-table-column prop="email" label="邮箱" width="300"></el-table-column>
+            <el-table-column label="操作" fixed="right" width="200" align="center">
                 <template slot-scope="scope">
                     <el-button type="success" @click="handlEdit(scope.row)">编辑 <i class="el-icon-edit"></i></el-button>
                     <el-popconfirm class="ml-5" confirm-button-text='确定' cancel-button-text='取消' icon="el-icon-info"
@@ -105,32 +105,31 @@ export default {
                 }
             });
             console.log(res.data)
-            this.tableData = res.data.records
+            this.tableData = res.data.result
             this.total = res.data.total
 
         },
 
-        save() {
-            Request.post("/user", this.form).then(res => {
-                if (res.data) {
-                    this.$message.success("保存成功")
-                    this.dialogFormVisible = false
-                    this.load()
-                } else {
-                    this.$message.error("保存失败")
-                }
-            })
+        async save() {
+            try {
+                await Request.post("/user/" + this.form.id, this.form);
+                this.load()
+                this.$message.success("保存成功")
+                this.dialogFormVisible = false
+            } catch (err) {
+                this.$message.error("保存失败")
+            }
         },
 
-        del(id) {
-            Request.delete("/user/" + id).then(res => {
-                if (res.data) {
-                    this.$message.success("删除成功")
-                    this.load()
-                } else {
-                    this.$message.error("删除失败")
-                }
-            })
+        async del(id) {
+             try {
+                await Request.delete("/user/" + id);
+                this.load()
+                this.$message.success("保存成功")
+                this.dialogFormVisible = false
+            } catch (err) {
+                this.$message.error("保存失败")
+            }
         },
 
 

@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div style="margin;: 10px 0">
+    <div style="height: 100%;">
+        <div style="margin: 10px 0">
             <el-input style="width: 200px" placeholder="请输入用户名" suffix-icon="el-icon-search" v-model="username"></el-input>
             <el-input style="width: 200px" placeholder="请输入职位" suffix-icon="el-icon-search" class="ml-5"
                 v-model="job"></el-input>
@@ -13,25 +13,23 @@
         </div>
 
         <div style="margin: 10px 0;">
-            <el-button type="primary" @click="handleAdd">新增 <i class="el-icon-circle-plus-outline"></i></el-button>
-            <el-popconfirm class="ml-5" confirm-button-text='确定' cancel-button-text='取消' icon="el-icon-info"
+            <!-- <el-button type="primary" @click="handleAdd">新增 <i class="el-icon-circle-plus-outline"></i></el-button> -->
+            <!-- <el-popconfirm class="ml-5" confirm-button-text='确定' cancel-button-text='取消' icon="el-icon-info"
                 icon-color="red" title="您确定批量删除这些数据吗？" @confirm="delBatch">
                 <el-button type="danger" slot="reference">批量删除 <i class="el-icon-remove-outline"></i></el-button>
-            </el-popconfirm>
+            </el-popconfirm> -->
         </div>
 
         <el-table :data="tableData" border stripe @selection-change="handleSelectionChange">
             <el-table-column type="selection" width="55">
             </el-table-column>
             <el-table-column prop="id" label="id" width="150"></el-table-column>
+             <el-table-column fixed="left" prop="nickname" label="名称" width="150"></el-table-column>
             <el-table-column prop="username" label="用户名" width="150"></el-table-column>
-            <el-table-column prop="nickname" label="名称" width="150"></el-table-column>
-            <el-table-column prop="job" label="职位" width="120"></el-table-column>
-            <el-table-column prop="worktime" label="体验时间" width="120"></el-table-column>
             <el-table-column prop="address" label="地址" width="120"></el-table-column>
             <el-table-column prop="phone" label="手机号码" width="150"></el-table-column>
             <el-table-column prop="email" label="邮箱"></el-table-column>
-            <el-table-column label="操作" width="300" align="center">
+            <el-table-column fixed="right" label="操作" width="300" align="center">
                 <template slot-scope="scope">
                     <el-button type="success" @click="handlEdit(scope.row)">编辑 <i class="el-icon-edit"></i></el-button>
                     <el-popconfirm class="ml-5" confirm-button-text='确定' cancel-button-text='取消' icon="el-icon-info"
@@ -58,12 +56,7 @@
                 <el-form-item label="名称">
                     <el-input v-model="form.nickname" autocomplete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="职位">
-                        <el-input v-model="form.job" autocomplete="off"></el-input>
-                    </el-form-item>
-                    <el-form-item label="体验时间">
-                        <el-input v-model="form.worktime" autocomplete="off"></el-input>
-                    </el-form-item>
+            
                 <el-form-item label="地址">
                     <el-input v-model="form.address" autocomplete="off"></el-input>
                 </el-form-item>
@@ -146,7 +139,7 @@ export default {
         },
 
         del(id) {
-            Request.delete("corporation/" + id).then(res => {
+            Request.delete("user/" + id).then(res => {
                 if (res) {
                     this.$message.success("删除成功")
                     this.load()
