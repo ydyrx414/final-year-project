@@ -8,9 +8,14 @@ import com.example.springboot.common.Constants;
 import com.example.springboot.common.Result;
 import com.example.springboot.dto.LoginDTO;
 import com.example.springboot.dto.RegisterDTO;
+import com.example.springboot.dto.UserQueryDTO;
 import com.example.springboot.entity.Student;
 import com.example.springboot.entity.User;
 import com.example.springboot.dto.UserDTO;
+import com.example.springboot.entity.VCorp;
+import com.example.springboot.entity.VStudent;
+import com.example.springboot.mapper.VCorpMapper;
+import com.example.springboot.mapper.VStudentMapper;
 import com.example.springboot.service.IAuthenticationService;
 import com.example.springboot.service.IUserService;
 import com.example.springboot.utils.Tuple2;
@@ -32,6 +37,13 @@ public class UserController {
 
     @Resource
     private IUserService userService;
+
+    @Autowired
+    private VStudentMapper vStudentMapper;
+
+    @Autowired
+    private VCorpMapper vCorpMapper;
+
     @Autowired
     private IAuthenticationService authenticationService;
 
@@ -79,6 +91,17 @@ public class UserController {
         return Result.success(userService.findById(id));
     }
 
+    @GetMapping("/{id}/as-student")
+    public Result<VStudent> findOneAsStudent(@PathVariable int id) {
+        return Result.success(vStudentMapper.selectById(id));
+    }
+    @GetMapping("/{id}/as-corp")
+    public Result<VCorp> findOneAsCorp(@PathVariable int id) {
+        return Result.success(vCorpMapper.selectById(id));
+    }
+
+
+
     //批量删除
     @DeleteMapping("/batch")
     public Result deleteBatch(@RequestBody int[] ids) {
@@ -88,20 +111,8 @@ public class UserController {
 
     //分页查询，mabatis-plus的方式
     @GetMapping("/page")
-    public Result<PageVO<User>> findPage(@RequestParam Integer pageNum,
-                                         @RequestParam Integer pageSize,
-                                         @RequestParam(defaultValue = "") String username,
-                                         @RequestParam(defaultValue = "") String nickname,
-                                         @RequestParam(defaultValue = "") String email,
-                                         @RequestParam(defaultValue = "") String phone) {
-//        IPage<User> page = new Page<>(pageNum,pageSize);
-//        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-//        queryWrapper.like(!Strings.isEmpty(username),"username",username);
-//        queryWrapper.like(!Strings.isEmpty(email),"nickname",nickname);
-//        queryWrapper.like(!Strings.isEmpty(email),"email",email);
-//        queryWrapper.like(!Strings.isEmpty(phone),"phone",phone);
-//        return Result.success(userService.page(page, queryWrapper));
-        return null;
+    public Result<PageVO<User>> findPage(UserQueryDTO dto) {
+        return Result.success(userService.queryUsers(dto));
     }
 
 

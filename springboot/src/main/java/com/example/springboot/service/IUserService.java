@@ -4,10 +4,12 @@ import cn.hutool.core.lang.Tuple;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.springboot.dto.RegisterDTO;
 import com.example.springboot.dto.UserDTO;
+import com.example.springboot.dto.UserQueryDTO;
 import com.example.springboot.entity.Corporation;
 import com.example.springboot.entity.Student;
 import com.example.springboot.entity.User;
 import com.example.springboot.utils.Tuple2;
+import com.example.springboot.vo.PageVO;
 import com.example.springboot.vo.RegisterOrLoginVO;
 
 import java.util.List;
@@ -24,6 +26,7 @@ public interface IUserService {
     void delete(int... uids);
 
     User findById(int uid);
+    PageVO<User> queryUsers(UserQueryDTO dto);
 
     Tuple2<User, Student> findStudent(int id);
     Tuple2<User,Student> findStudent(String username);

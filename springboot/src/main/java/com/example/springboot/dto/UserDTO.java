@@ -12,5 +12,9 @@ public class UserDTO {
     private String nickname;
     private String email;
     private String phone;
+    private String address;
+    private String nature;
+    private String subject;
+    private String intention;
     private int type;
 }

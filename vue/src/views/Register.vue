@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <div
-            style="margin: 150px auto; background-color: #fff; width: 350px; height: 400px; padding: 20px; border-radius: 10px">
+            style="margin: 150px auto; background-color: #fff; width: 350px; padding: 20px; border-radius: 10px">
             <div style="margin: 20px 0; text-align: center; font-size: 24px"><b>注 册</b></div>
             <el-form :model="user" :rules="rules" ref="userForm">
                 <el-form-item label="身份">
@@ -33,12 +33,16 @@
                     <el-input placeholder="请确认密码" size="medium" prefix-icon="el-icon-lock" show-password
                         v-model="user.confirmPassword"></el-input>
                 </el-form-item>
-                <el-form-item style="margin: 5px 0; text-align: right">
-                    <el-button type="primary" size="small" autocomplete="off" @click="login">注册</el-button>
-                    <el-button type="warning" size="small" autocomplete="off"
-                        @click="$router.push('/login')">返回登录</el-button>
-                </el-form-item>
             </el-form>
+            <el-button style="width:100%" type="primary" @click="login">登录</el-button>
+            <br />     <br />
+            <el-button type="danger" style="width:100%;margin-left: auto;
+                    margin-right: auto;
+                    display: block;" @click="$router.push('/login')">返回登录</el-button>
+                         <br />
+            <el-button type="text" style="width:50%;margin-left: auto;
+                        margin-right: auto;
+                        display: block;" @click="$router.push('/')">返回主页</el-button>
         </div>
     </div>
 </template>

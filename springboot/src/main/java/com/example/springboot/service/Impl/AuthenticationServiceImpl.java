@@ -44,7 +44,9 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
         assert !StringHelper.isBlankOrEmptyOrNull(token);
         Integer id = tokenMap.get(token);
         assert id != null;
-        return userMapper.selectById(id);
+        User user =  userMapper.selectById(id);
+        assert user != null;
+        return user;
     }
 
     @Override

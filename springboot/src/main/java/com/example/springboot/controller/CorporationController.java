@@ -6,6 +6,7 @@ import com.example.springboot.common.Constants;
 import com.example.springboot.common.Result;
 import com.example.springboot.dto.CorporationQueryDTO;
 import com.example.springboot.dto.StudentQueryDTO;
+import com.example.springboot.dto.UpdateCorpDTO;
 import com.example.springboot.entity.Corporation;
 import com.example.springboot.dto.CorporationRegisterDTO;
 import com.example.springboot.entity.Student;
@@ -44,8 +45,8 @@ public class CorporationController {
      * @return
      */
     @PostMapping
-    public Result save(@RequestBody Corporation corporation) {
-        throw new RuntimeException();
+    public Result<VCorp> save(@RequestBody UpdateCorpDTO dto) {
+        return Result.success(corporationService.update(dto));
     }
 
     //删除数据

@@ -17,6 +17,10 @@ const routes = [
         }
       },
       {
+        path: 'profile',
+        component: () => import(/* webpackChunkName: "about" */ '../components/Profile.vue')
+      },
+      {
         path: 'user',
         component: () => import(/* webpackChunkName: "about" */ '../views/admin/UserList.vue'),
         meta: {
@@ -62,7 +66,6 @@ const routes = [
     path: '/about',
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
-
   {
     path: '/',
     redirect:"/home",
@@ -71,6 +74,10 @@ const routes = [
       {
         path: 'home',
         component: () => import(/* webpackChunkName: "about" */ '../views/app/Home.vue')
+      },
+      {
+        path: 'profile',
+        component: () => import(/* webpackChunkName: "about" */ '../components/Profile.vue')
       },
       {
         path: 'jobs',

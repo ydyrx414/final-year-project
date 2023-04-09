@@ -10,18 +10,21 @@
                 <el-form-item prop="password">
                     <el-input size="medium" prefix-icon="el-icon-lock" show-password v-model="user.password"></el-input>
                 </el-form-item>
-                <el-form-item style="margin: 10px 0; text-align: right">
-                    <el-button type="warning" size="small" autocomplete="off"
-                        @click="$router.push('/register')">注册</el-button>
-                    <el-button type="primary" size="small" autocomplete="off" @click="login">登录</el-button>
-                </el-form-item>
             </el-form>
+            <el-button style="width:100%" type="primary" @click="login">登录</el-button>
+            <br /> <br />
+            <el-button type="text" style="width:50%;margin-left: auto;
+            margin-right: auto;
+            display: block;" @click="$router.push('/register')">没有账号？注册！</el-button>
+             <el-button type="text" style="width:50%;margin-left: auto;
+                margin-right: auto;
+                display: block;" @click="$router.push('/')">返回主页</el-button>
         </div>
     </div>
 </template>
 
 <script>
-import {setLoginResult} from "../utils/user"
+import { setLoginResult } from "../utils/user"
 export default {
     name: "Login",
     data() {
@@ -48,16 +51,16 @@ export default {
                     const res = await this.request.post("/user/login", this.user);
                     setLoginResult(res.data)
                     const type = res.data.user.type
-                    switch(type){
+                    switch (type) {
                         case 0:
-                           this.$router.push("/admin") 
-                           break;
+                            this.$router.push("/admin")
+                            break;
                         case 1:
                         case 2:
                             this.$router.push("/home")
                             break;
                     }
-                } 
+                }
             });
 
 

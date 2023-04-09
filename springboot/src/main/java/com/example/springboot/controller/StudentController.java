@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.springboot.common.Constants;
 import com.example.springboot.common.Result;
+import com.example.springboot.dto.UpdateStudentDTO;
 import com.example.springboot.entity.Student;
 import com.example.springboot.dto.StudentDTO;
 import com.example.springboot.dto.StudentQueryDTO;
@@ -30,8 +31,8 @@ public class StudentController {
 
     // 修改
     @PostMapping
-    public Result save(@RequestBody Student student) {
-        throw new RuntimeException();
+    public Result<VStudent> save(@RequestBody UpdateStudentDTO dto) {
+        return Result.success(studentService.update(dto));
     }
 
     @GetMapping("/username/{username}")

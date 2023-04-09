@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 @Data
 @Builder
 public class ApplyVO {
+    private int id;
     private int jobId;
     private int corporationId;
     private String jobName;

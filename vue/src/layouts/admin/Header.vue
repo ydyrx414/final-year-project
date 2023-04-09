@@ -9,7 +9,7 @@
     </div>
 
 
-    <el-dropdown @command="onCommand" style="width: 70px;">
+    <el-dropdown trigger="click" @command="onCommand" style="width: 70px;margin-right:10px">
 
 
       <el-button type="primary">
@@ -19,9 +19,6 @@
       <el-dropdown-menu slot="dropdown" style="width: 100px; text-align: center;">
         <el-dropdown-item command="detail">
           详细信息
-        </el-dropdown-item>
-        <el-dropdown-item command="modify-password">
-          修改密码
         </el-dropdown-item>
         <el-dropdown-item command="exit">
           退出
@@ -51,10 +48,7 @@ export default {
     onCommand(command) {
       switch (command) {
         case "detail":
-          this.$router.push("/profile")
-          break;
-        case "modify-password":
-          this.$router.push("/Person")
+          this.$router.push("/admin/profile")
           break;
         case "exit":
           setLoginResult(null)

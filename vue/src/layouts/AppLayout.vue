@@ -13,22 +13,10 @@
                 <el-menu :default-active="'1'" class="el-menu-demo" mode="horizontal" router>
                     <el-menu-item index="/home">首页</el-menu-item>
                     <el-menu-item index="/video">视频学习</el-menu-item>
-                    <el-menu-item index="/jobs">职位列表</el-menu-item>
-                    <el-menu-item index="/received">
+                    <el-menu-item v-if="user" index="/jobs">职位列表</el-menu-item>
+                    <el-menu-item v-if="user" index="/received">
                         消息
                     </el-menu-item>
-                    <!-- <el-submenu index="2">
-                        <template slot="title">我的内容</template>
-                        <el-menu-item index="/front/item1">选项1</el-menu-item>
-                        <el-menu-item index="2-2">选项2</el-menu-item>
-                        <el-menu-item index="2-3">选项3</el-menu-item>
-                        <el-submenu index="2-4">
-                            <template slot="title">选项4</template>
-                            <el-menu-item index="2-4-1">选项1</el-menu-item>
-                            <el-menu-item index="2-4-2">选项2</el-menu-item>
-                            <el-menu-item index="2-4-3">选项3</el-menu-item>
-                        </el-submenu>
-                    </el-submenu> -->
                 </el-menu>
             </div>
             <div style="width: 200px">
@@ -37,7 +25,7 @@
                     <el-button @click="$router.push('/register')">注册</el-button>
                 </div>
                 <div v-else>
-                    <el-dropdown @command="onCommand" style="width: 70px;">
+                    <el-dropdown trigger="click" @command="onCommand" style="width: 70px;">
 
                         <el-button type="primary">
                             {{ user.nickname }}
@@ -45,10 +33,7 @@
 
                         <el-dropdown-menu slot="dropdown" style="width: 100px; text-align: center;">
                             <el-dropdown-item command="detail">
-                                详细信息
-                            </el-dropdown-item>
-                            <el-dropdown-item command="modify-password">
-                                修改密码
+                                个人信息
                             </el-dropdown-item>
                             <el-dropdown-item command="exit">
                                 退出
@@ -86,10 +71,7 @@ export default {
         onCommand(command) {
             switch (command) {
                 case "detail":
-                    this.$router.push("/Person")
-                    break;
-                case "modify-password":
-                    this.$router.push("/Person")
+                    this.$router.push("/profile")
                     break;
                 case "exit":
                     setLoginResult(null)
