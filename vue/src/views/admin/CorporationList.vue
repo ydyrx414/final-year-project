@@ -12,6 +12,7 @@
             <el-button type="warning" @click="reset">重置</el-button>
         </div>
 
+        <el-divider/>
         <div style="margin: 10px 0;">
             <!-- <el-button type="primary" @click="handleAdd">新增 <i class="el-icon-circle-plus-outline"></i></el-button> -->
             <!-- <el-popconfirm class="ml-5" confirm-button-text='确定' cancel-button-text='取消' icon="el-icon-info"

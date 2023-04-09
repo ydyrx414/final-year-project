@@ -48,25 +48,15 @@ export default {
                     const res = await this.request.post("/user/login", this.user);
                     setLoginResult(res.data)
                     const type = res.data.user.type
-                    console.log(type) 
                     switch(type){
                         case 0:
-                           this.$router.push("/home") 
+                           this.$router.push("/admin") 
                            break;
                         case 1:
                         case 2:
-                            this.$router.push("/front/home")
+                            this.$router.push("/home")
                             break;
                     }
-                    // if (res.code === '200') {
-                    //     localStorage.setItem("token", )
-                    //     localStorage.setItem("user", JSON.stringify(res.data))  //存储用户信息到浏览器
-                    //     this.$router.push("/home")
-                    //     this.$message.success("登陆成功")
-
-                    // } else {
-                    //     this.$message.error(res.msg)
-                    // }
                 } 
             });
 

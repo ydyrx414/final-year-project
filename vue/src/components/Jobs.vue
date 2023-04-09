@@ -12,30 +12,33 @@
             <el-button type="warning" @click="reset">重置</el-button>
         </div>
 
-        <div style="margin: 10px 0;">
-            <el-button type="primary" @click="handleAdd">新增 <i class="el-icon-circle-plus-outline"></i></el-button>
-            <el-popconfirm class="ml-5" confirm-button-text='确定' cancel-button-text='取消' icon="el-icon-info"
-                icon-color="red" title="您确定批量删除这些数据吗？" @confirm="delBatch">
-                <el-button type="danger" slot="reference">批量删除 <i class="el-icon-remove-outline"></i></el-button>
-            </el-popconfirm>
-        </div>
+        <el-button type="success" @click="onClickAddJob">添加职位</el-button>
+        <el-divider />
+        
 
         <el-table :data="tableData" border stripe @selection-change="handleSelectionChange">
             <el-table-column type="selection" width="55">
             </el-table-column>
             <el-table-column prop="id" label="id" width="150"></el-table-column>
-            <el-table-column prop="name" label="职位名称" width="150"></el-table-column>
+            <el-table-column fixed="left" prop="name" label="职位名称" width="150"></el-table-column>
             <el-table-column prop="expTime" label="提供体验时间" width="180"></el-table-column>
-                        <el-table-column prop="corporationName" label="公司"></el-table-column>
+            <el-table-column prop="corporationName" label="公司"></el-table-column>
             <el-table-column prop="address" label="地址"></el-table-column>
- 
-            <el-table-column label="操作" width="300" align="center">
+
+            <el-table-column v-if="$props.view != 1" fixed="right" label="操作" width="300" align="center">
                 <template slot-scope="scope">
+                    <el-button type="success" @click="invite(scope.row)">邀请</el-button>
                     <el-button type="success" @click="handlEdit(scope.row)">编辑 <i class="el-icon-edit"></i></el-button>
                     <el-popconfirm class="ml-5" confirm-button-text='确定' cancel-button-text='取消' icon="el-icon-info"
                         icon-color="red" title="您确定删除吗？" @confirm="del(scope.row.id)">
                         <el-button type="danger" slot="reference">删除 <i class="el-icon-remove-outline"></i></el-button>
                     </el-popconfirm>
+                </template>
+            </el-table-column>
+
+            <el-table-column v-else fixed="right" label="操作" width="200" align="center">
+                <template slot-scope="scope">
+                    <el-button type="success" @click="apply(scope.row)">申请 <i class="el-icon-edit"></i></el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -48,10 +51,25 @@
 
         </div>
 
+        <el-dialog title="邀请" :visible.sync="inviteVisible" width="500px">
+            <el-table  @selection-change="handleInviteSelectionChange" :data="inviting" style="width: 100%">
+                <el-table-column type="selection" width="55">
+                </el-table-column>
+                <el-table-column prop="nickname" label="姓名" width="180">
+                </el-table-column>
+                <el-table-column prop="phone" label="手机号">
+                </el-table-column>
+            </el-table>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="inviteVisible = false">取消</el-button>
+                <el-button :disabled="invited.length == 0" type="primary" @click="sendInvite">邀请</el-button>
+            </span>
+        </el-dialog>
+
         <el-dialog title="职位信息" :visible.sync="dialogFormVisible" width="30%">
             <el-form label-width="120px">
-                <el-form-item label="公司ID">
-                    <el-input v-model="form.corporationId" autocomplete="off"></el-input>
+                <el-form-item  label="公司ID">
+                    <el-input :disabled="disableCorporationId" v-model="form.corporationId" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="职位名">
                     <el-input v-model="form.name" autocomplete="off"></el-input>
@@ -70,18 +88,28 @@
 
 <script>
 import Request from "@/utils/request";
+import Invite from "../views/app/Invite.vue";
+import { getLoginResult } from "../utils/user";
 export default {
-    name: "Jobs",
+    props: {
+        view: 0
+    },
     data() {
         return {
             tableData: [],
             total: 0,
+            disableCorporationId:false,
             pageNum: 1,
             pageSize: 5,
             name: "",
             time: "",
+            expTime: "",
+            inviting: [],
+            invited: [],
             form: {},
+            invitingJob:null,
             dialogFormVisible: false,
+            inviteVisible: false,
             address: ""
         }
     },
@@ -90,6 +118,41 @@ export default {
         this.load()
     },
     methods: {
+        async onClickAddJob(){
+            const user = getLoginResult().user;
+            this.form = {}
+            if(user.type == 2){
+                this.form.corporationId = user.id
+                this.disableCorporationId = true
+            }
+            this.dialogFormVisible = true
+        },
+        async handleInviteSelectionChange(rows) {
+            this.invited = rows
+        },
+        async apply(job) {
+            await Request.post("/application/" + job.id)
+            this.$message.success("申请成功")
+        },
+        async invite(job) {
+            const res = await Request.get("/student/page", {
+                params: {
+                    pageSize: 1234567,
+                    pageNum: 1
+                }
+            })
+            this.invitingJob = job;
+            this.invited = []
+            this.inviting = res.data.result
+            this.inviteVisible = true
+        },
+        async sendInvite(){
+            this.inviteVisible = false;
+            const res = await Request.post(`/application/${this.invitingJob.id}/invite`, {
+                uids:this.invited.map(s=>s.id)
+            })
+            console.log(res)
+        },
         async load() {
             const res = await Request.get("/job", {
                 params: {
@@ -97,10 +160,10 @@ export default {
                     pageSize: this.pageSize,
                     name: this.name,
                     address: this.address,
-                    time: this.time
+                    time: this.time,
+                    view: this.$props.view
                 }
             })
-            // console.log(res.data.result)
             this.tableData = res.data.result
             this.total = res.data.total
         },
@@ -130,7 +193,6 @@ export default {
 
 
         handleSelectionChange(val) {
-            console.log(val)
             this.multipleSelection = val
         },
 
@@ -160,11 +222,10 @@ export default {
         },
 
         reset() {
-
+            this.expTime = ""
             this.name = ""
-                this.expTime = ""
-                this.address = ""
-                this.load()
+            this.address = ""
+            this.load()
         },
 
         handleSizeChange(pageSize) {

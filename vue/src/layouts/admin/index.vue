@@ -22,11 +22,8 @@
 </template>
 
 <script>
-import { request } from 'http'
-import { runInThisContext } from 'vm'
-
-import Aside from "@/components/Aside";
-import Header from "@/components/Header";
+import Aside from "./Aside.vue";
+import Header from "./Header.vue";
 
 
 

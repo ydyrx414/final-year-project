@@ -83,11 +83,11 @@ export default {
                         const type = res.data.user.type;
                         switch (type) {
                             case 0:
-                                this.$router.push("/home")
+                                this.$router.push("/admin/home")
                                 break;
                             case 1:
                             case 2:
-                                this.$router.push("/front/home")
+                                this.$router.push("/home")
                                 break;
                         }
                         this.$message.success("注册成功")

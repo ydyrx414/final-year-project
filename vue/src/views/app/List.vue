@@ -10,8 +10,7 @@
             <el-button type="warning" @click="reset">重置</el-button>
         </div>
 
-        
-
+    
         <el-table :data="tableData" border stripe @selection-change="handleSelectionChange">
             <el-table-column type="selection" width="55">
             </el-table-column>

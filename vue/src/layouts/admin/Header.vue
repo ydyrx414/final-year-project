@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { getLoginResult, setLoginResult } from '../utils/user';
+import { getLoginResult, setLoginResult } from '../../utils/user';
 
 export default {
   name: "Header",
@@ -51,7 +51,7 @@ export default {
     onCommand(command) {
       switch (command) {
         case "detail":
-          this.$router.push("/Person")
+          this.$router.push("/profile")
           break;
         case "modify-password":
           this.$router.push("/Person")

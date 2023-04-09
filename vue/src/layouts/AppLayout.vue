@@ -11,10 +11,13 @@
             <div style="flex: 1">
 
                 <el-menu :default-active="'1'" class="el-menu-demo" mode="horizontal" router>
-                    <el-menu-item index="/front/home">首页</el-menu-item>
-                    <el-menu-item index="/front/video">视频学习</el-menu-item>
-                    <el-menu-item index="/front/list">职位列表</el-menu-item>
-                    <el-submenu index="2">
+                    <el-menu-item index="/home">首页</el-menu-item>
+                    <el-menu-item index="/video">视频学习</el-menu-item>
+                    <el-menu-item index="/jobs">职位列表</el-menu-item>
+                    <el-menu-item index="/received">
+                        消息
+                    </el-menu-item>
+                    <!-- <el-submenu index="2">
                         <template slot="title">我的内容</template>
                         <el-menu-item index="/front/item1">选项1</el-menu-item>
                         <el-menu-item index="2-2">选项2</el-menu-item>
@@ -25,13 +28,13 @@
                             <el-menu-item index="2-4-2">选项2</el-menu-item>
                             <el-menu-item index="2-4-3">选项3</el-menu-item>
                         </el-submenu>
-                    </el-submenu>
+                    </el-submenu> -->
                 </el-menu>
             </div>
             <div style="width: 200px">
-                <div v-if="!user.username" style="text-align: right; padding-right: 30px">
-                    <el-button @click="$router.push('/Slogin')">登录</el-button>
-                    <el-button @click="$router.push('/Sregister')">注册</el-button>
+                <div v-if="!user" style="text-align: right; padding-right: 30px">
+                    <el-button @click="$router.push('/login')">登录</el-button>
+                    <el-button @click="$router.push('/register')">注册</el-button>
                 </div>
                 <div v-else>
                     <el-dropdown @command="onCommand" style="width: 70px;">
@@ -64,7 +67,7 @@
 </template>
 
 <script>
-import { getLoginResult,setLoginResult } from "../../utils/user"
+import { getLoginResult, setLoginResult } from "../utils/user"
 export default {
     name: "Front",
     data() {
