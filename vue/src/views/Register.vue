@@ -94,9 +94,14 @@ export default {
                                 this.$router.push("/home")
                                 break;
                         }
-                        this.$message.success("注册成功")
+                        this.$notify.success({
+                            title: "注册成功"
+                        })
                     } else {
-                        this.$message.error(res.msg)
+                        this.$notify.error({
+                            title:"注册失败",
+                            message:res.msg
+                        })
                     }
                 }
             });

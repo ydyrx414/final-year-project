@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div style="margin;: 10px 0">
+        <div style="margin;: 10px">
 
             <el-input style="width: 200px" placeholder="请输入职位名" suffix-icon="el-icon-search" class="ml-5"
                 v-model="name"></el-input>
@@ -12,9 +12,9 @@
             <el-button type="warning" @click="reset">重置</el-button>
         </div>
 
-        <el-button type="success" @click="onClickAddJob">添加职位</el-button>
+        <el-button v-if="user.type !== 1" type="success" @click="onClickAddJob">添加职位</el-button>
         <el-divider />
-        
+
 
         <el-table :data="tableData" border stripe @selection-change="handleSelectionChange">
             <el-table-column type="selection" width="55">
@@ -52,7 +52,7 @@
         </div>
 
         <el-dialog title="邀请" :visible.sync="inviteVisible" width="500px">
-            <el-table  @selection-change="handleInviteSelectionChange" :data="inviting" style="width: 100%">
+            <el-table @selection-change="handleInviteSelectionChange" :data="inviting" style="width: 100%">
                 <el-table-column type="selection" width="55">
                 </el-table-column>
                 <el-table-column prop="nickname" label="姓名" width="180">
@@ -68,7 +68,7 @@
 
         <el-dialog title="职位信息" :visible.sync="dialogFormVisible" width="30%">
             <el-form label-width="120px">
-                <el-form-item  label="公司ID">
+                <el-form-item label="公司ID">
                     <el-input :disabled="disableCorporationId" v-model="form.corporationId" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="职位名">
@@ -98,7 +98,7 @@ export default {
         return {
             tableData: [],
             total: 0,
-            disableCorporationId:false,
+            disableCorporationId: false,
             pageNum: 1,
             pageSize: 5,
             name: "",
@@ -107,10 +107,11 @@ export default {
             inviting: [],
             invited: [],
             form: {},
-            invitingJob:null,
+            invitingJob: null,
             dialogFormVisible: false,
             inviteVisible: false,
-            address: ""
+            address: "",
+            user: getLoginResult().user
         }
     },
     created() {
@@ -118,10 +119,10 @@ export default {
         this.load()
     },
     methods: {
-        async onClickAddJob(){
+        async onClickAddJob() {
             const user = getLoginResult().user;
             this.form = {}
-            if(user.type == 2){
+            if (user.type == 2) {
                 this.form.corporationId = user.id
                 this.disableCorporationId = true
             }
@@ -132,7 +133,9 @@ export default {
         },
         async apply(job) {
             await Request.post("/application/" + job.id)
-            this.$message.success("申请成功")
+            this.$notify.success({
+                title: "申请成功"
+            })
         },
         async invite(job) {
             const res = await Request.get("/student/page", {
@@ -146,10 +149,10 @@ export default {
             this.inviting = res.data.result
             this.inviteVisible = true
         },
-        async sendInvite(){
+        async sendInvite() {
             this.inviteVisible = false;
             const res = await Request.post(`/application/${this.invitingJob.id}/invite`, {
-                uids:this.invited.map(s=>s.id)
+                uids: this.invited.map(s => s.id)
             })
             console.log(res)
         },
@@ -171,11 +174,15 @@ export default {
         save() {
             Request.post("/job/" + (this.form.id ?? ""), this.form).then(res => {
                 if (res) {
-                    this.$message.success("保存成功")
+                    this.$notify.success({
+                        title: "保存成功"
+                    })
                     this.dialogFormVisible = false
                     this.load()
                 } else {
-                    this.$message.error("保存失败")
+                    this.$notify.error({
+                        title: "保存失败"
+                    })
                 }
             })
         },
@@ -183,10 +190,14 @@ export default {
         del(id) {
             Request.delete("/job/" + id).then(res => {
                 if (res) {
-                    this.$message.success("删除成功")
+                    this.$notify.success({
+                        title: "删除失败"
+                    })
                     this.load()
                 } else {
-                    this.$message.error("删除失败")
+                    this.$notify.success({
+                        title: "删除成功"
+                    })
                 }
             })
         },

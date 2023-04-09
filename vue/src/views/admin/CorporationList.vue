@@ -6,13 +6,13 @@
                 v-model="job"></el-input>
             <el-input style="width: 200px" placeholder="请输入体验时间" suffix-icon="el-icon-search" class="ml-5"
                 v-model="worktime"></el-input>
-                <el-input style="width: 200px" placeholder="请输入地址" suffix-icon="el-icon-search" class="ml-5"
-                    v-model="address"></el-input>
+            <el-input style="width: 200px" placeholder="请输入地址" suffix-icon="el-icon-search" class="ml-5"
+                v-model="address"></el-input>
             <el-button class="ml-5" type="primary" @click="load">搜索</el-button>
             <el-button type="warning" @click="reset">重置</el-button>
         </div>
 
-        <el-divider/>
+        <el-divider />
         <div style="margin: 10px 0;">
             <!-- <el-button type="primary" @click="handleAdd">新增 <i class="el-icon-circle-plus-outline"></i></el-button> -->
             <!-- <el-popconfirm class="ml-5" confirm-button-text='确定' cancel-button-text='取消' icon="el-icon-info"
@@ -25,7 +25,7 @@
             <el-table-column type="selection" width="55">
             </el-table-column>
             <el-table-column prop="id" label="id" width="150"></el-table-column>
-             <el-table-column fixed="left" prop="nickname" label="名称" width="150"></el-table-column>
+            <el-table-column fixed="left" prop="nickname" label="名称" width="150"></el-table-column>
             <el-table-column prop="username" label="用户名" width="150"></el-table-column>
             <el-table-column prop="address" label="地址" width="120"></el-table-column>
             <el-table-column prop="phone" label="手机号码" width="150"></el-table-column>
@@ -57,7 +57,7 @@
                 <el-form-item label="名称">
                     <el-input v-model="form.nickname" autocomplete="off"></el-input>
                 </el-form-item>
-            
+
                 <el-form-item label="地址">
                     <el-input v-model="form.address" autocomplete="off"></el-input>
                 </el-form-item>
@@ -130,11 +130,15 @@ export default {
         save() {
             Request.post("/corporation", this.form).then(res => {
                 if (res) {
-                    this.$message.success("保存成功")
+                    this.$notify.success({
+                        title: "保存成功"
+                    })
                     this.dialogFormVisible = false
                     this.load()
                 } else {
-                    this.$message.error("保存失败")
+                    this.$message.error({
+                        title: "保存失败"
+                    })
                 }
             })
         },
@@ -183,14 +187,14 @@ export default {
 
         reset() {
 
-            this.username="",
-                this.nickname="",
-                this.job="",
-                this.worktime="",
-                this.address="",
-                this.email="",
-                this.phone="",
-            this.load()
+            this.username = "",
+                this.nickname = "",
+                this.job = "",
+                this.worktime = "",
+                this.address = "",
+                this.email = "",
+                this.phone = "",
+                this.load()
         },
 
         handleSizeChange(pageSize) {
