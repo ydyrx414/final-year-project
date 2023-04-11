@@ -51,11 +51,19 @@
 
         </div>
 
-        <el-dialog title="邀请" :visible.sync="inviteVisible" width="500px">
+        <el-dialog title="邀请" :visible.sync="inviteVisible" width="1200px">
             <el-table @selection-change="handleInviteSelectionChange" :data="inviting" style="width: 100%">
                 <el-table-column type="selection" width="55">
                 </el-table-column>
                 <el-table-column prop="nickname" label="姓名" width="180">
+                </el-table-column>
+                <el-table-column prop="subject" label="专业" width="180">
+                </el-table-column>
+                <el-table-column prop="intention" label="意向体验" width="180">
+                </el-table-column>
+                <el-table-column prop="nature" label="职业性格" width="180">
+                </el-table-column>
+                <el-table-column prop="email" label="邮箱" width="180">
                 </el-table-column>
                 <el-table-column prop="phone" label="手机号">
                 </el-table-column>

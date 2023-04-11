@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-form :model="form" style="margin:8px">
-      <el-form-item :label="user.type === 1 ? '姓名' : '公司名'">
+      <el-form-item :label="user.type === 1 ? '姓名' : '名称'">
         <el-input v-model="form.nickname"></el-input>
       </el-form-item>
       <el-form-item label="电子邮件">

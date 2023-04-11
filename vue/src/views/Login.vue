@@ -14,11 +14,11 @@
             <el-button style="width:100%" type="primary" @click="login">登录</el-button>
             <br /> <br />
             <el-button type="text" style="width:50%;margin-left: auto;
-            margin-right: auto;
-            display: block;" @click="$router.push('/register')">没有账号？注册！</el-button>
-             <el-button type="text" style="width:50%;margin-left: auto;
-                margin-right: auto;
-                display: block;" @click="$router.push('/')">返回主页</el-button>
+                    margin-right: auto;
+                    display: block;" @click="$router.push('/register')">没有账号？注册！</el-button>
+            <el-button type="text" style="width:50%;margin-left: auto;
+                        margin-right: auto;
+                        display: block;" @click="$router.push('/')">返回主页</el-button>
         </div>
     </div>
 </template>
@@ -45,9 +45,10 @@ export default {
     },
 
     methods: {
-        login() {
-            this.$refs['userForm'].validate(async (valid) => {
-                if (valid) {  //表单校验合法
+        async login() {
+            try {
+                const valid = await this.$refs['userForm'].validate();
+                if (valid) { // 表单校验合法
                     const res = await this.request.post("/user/login", this.user);
                     setLoginResult(res.data)
                     const type = res.data.user.type
@@ -60,8 +61,18 @@ export default {
                             this.$router.push("/home")
                             break;
                     }
+                    if (res.code === '200') {
+                        this.$notify.success({
+                            title: "登录成功"
+                        })
+                    }
                 }
-            });
+            } catch (error) {
+                console.error(error); // 输出错误信息以便调试
+                this.$notify.error({
+                    title: "登录失败,用户名或密码错误"
+                })
+            }
 
 
         }

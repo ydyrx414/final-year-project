@@ -1,26 +1,16 @@
 package com.example.springboot.controller;
 
-import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.example.springboot.common.Constants;
 import com.example.springboot.common.Result;
 import com.example.springboot.dto.CorporationQueryDTO;
-import com.example.springboot.dto.StudentQueryDTO;
 import com.example.springboot.dto.UpdateCorpDTO;
-import com.example.springboot.entity.Corporation;
-import com.example.springboot.dto.CorporationRegisterDTO;
-import com.example.springboot.entity.Student;
-import com.example.springboot.entity.User;
 import com.example.springboot.entity.VCorp;
 import com.example.springboot.service.ICorporationService;
 import com.example.springboot.service.IUserService;
-import com.example.springboot.utils.Tuple2;
 import com.example.springboot.vo.PageVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @CrossOrigin
 @RestController
