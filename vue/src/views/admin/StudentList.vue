@@ -1,7 +1,7 @@
 <template>
     <div>
         <div style="margin;: 10px 0">
-            <el-input style="width: 200px" placeholder="请输入用户名" suffix-icon="el-icon-search" v-model="username"></el-input>
+            <el-input style="width: 200px" placeholder="请输入姓名" suffix-icon="el-icon-search" v-model="nickname"></el-input>
             <el-input style="width: 200px" placeholder="请输入专业" suffix-icon="el-icon-search" class="ml-5"
                 v-model="subject"></el-input>
             <el-input style="width: 200px" placeholder="请输入意向" suffix-icon="el-icon-search" class="ml-5"
@@ -27,7 +27,7 @@
             </el-table-column>
             <el-table-column prop="id" label="id" width="150"></el-table-column>
             <el-table-column prop="username" label="用户名" width="150"></el-table-column>
-            <el-table-column prop="nickname" label="名称" width="150"></el-table-column>
+            <el-table-column prop="nickname" label="姓名" width="150"></el-table-column>
             <el-table-column prop="subject" label="专业" width="150"></el-table-column>
             <el-table-column prop="nature" label="职业性格" width="180"></el-table-column>
             <el-table-column prop="intention" label="意向体验" width="180"></el-table-column>

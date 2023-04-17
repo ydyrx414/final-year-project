@@ -1,13 +1,11 @@
 <template>
     <div style="height: 100%;">
         <div style="margin: 10px 0">
-            <el-input style="width: 200px" placeholder="请输入用户名" suffix-icon="el-icon-search" v-model="username"></el-input>
-            <el-input style="width: 200px" placeholder="请输入职位" suffix-icon="el-icon-search" class="ml-5"
-                v-model="job"></el-input>
-            <el-input style="width: 200px" placeholder="请输入体验时间" suffix-icon="el-icon-search" class="ml-5"
-                v-model="worktime"></el-input>
-            <el-input style="width: 200px" placeholder="请输入地址" suffix-icon="el-icon-search" class="ml-5"
-                v-model="address"></el-input>
+            <el-input style="width: 200px" placeholder="请输入企业名称" suffix-icon="el-icon-search" v-model="nickname"></el-input>
+            <el-input style="width: 200px" placeholder="请输入电话" suffix-icon="el-icon-search" class="ml-5"
+                v-model="phone"></el-input>
+            <el-input style="width: 200px" placeholder="请输入邮箱" suffix-icon="el-icon-search" class="ml-5"
+                v-model="email"></el-input>
             <el-button class="ml-5" type="primary" @click="load">搜索</el-button>
             <el-button type="warning" @click="reset">重置</el-button>
         </div>
@@ -90,7 +88,7 @@ export default {
             username: "",
             nickname: "",
             job: "",
-            worktime: "",
+            expTime: "",
             address: "",
             email: "",
             phone: "",
@@ -104,30 +102,26 @@ export default {
         this.load()
     },
     methods: {
-        load() {
-            Request.get("/corporation/page", {
+        async load() {
+            const res = await Request.get("/corporation/page", {
                 params: {
                     pageNum: this.pageNum,
                     pageSize: this.pageSize,
                     username: this.username,
                     nickname: this.nickname,
                     job: this.job,
-                    worktime: this.worktime,
+                    expTime: this.expTime,
                     address: this.address,
                     email: this.email,
                     phone: this.phone
                 }
-            }).then(res => {
-                console.log("records" + res.records)
-                console.log(res)
+            })
                 this.tableData = res.data.result
                 this.total = res.data.total
 
-            })
-
         },
 
-        save() {
+        async save() {
             Request.post("/corporation", this.form).then(res => {
                 if (res) {
                     this.$notify.success({
@@ -190,7 +184,7 @@ export default {
             this.username = "",
                 this.nickname = "",
                 this.job = "",
-                this.worktime = "",
+                this.expTime = "",
                 this.address = "",
                 this.email = "",
                 this.phone = "",

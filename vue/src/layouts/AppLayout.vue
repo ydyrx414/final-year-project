@@ -14,9 +14,7 @@
                     <el-menu-item index="/home">首页</el-menu-item>
                     <el-menu-item index="/video">就业体验相关介绍</el-menu-item>
                     <el-menu-item v-if="user" index="/jobs">职位列表</el-menu-item>
-                    <el-menu-item v-if="user" index="/received">
-                        消息
-                    </el-menu-item>
+                    <el-menu-item v-if="user" index="/received"> 消息</el-menu-item>
                 </el-menu>
             </div>
             <div style="width: 200px">
@@ -64,10 +62,6 @@ export default {
 
     },
     methods: {
-        back() {
-            this.$router.push({ name: 'Selection' });
-
-        },
         onCommand(command) {
             switch (command) {
                 case "detail":

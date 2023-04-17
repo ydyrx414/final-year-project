@@ -5,10 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.springboot.dto.CorporationQueryDTO;
 import com.example.springboot.dto.UpdateCorpDTO;
-import com.example.springboot.entity.Corporation;
-import com.example.springboot.entity.Student;
-import com.example.springboot.entity.User;
-import com.example.springboot.entity.VCorp;
+import com.example.springboot.entity.*;
 import com.example.springboot.mapper.*;
 import com.example.springboot.service.ICorporationService;
 import com.example.springboot.service.IUserService;
@@ -81,9 +78,20 @@ public class CorporationServiceImpl implements ICorporationService {
     @Override
     public PageVO<VCorp> queryCorporations(CorporationQueryDTO dto) {
         LambdaQueryWrapper<VCorp> qw = new LambdaQueryWrapper<>();
+
+        if (!StringHelper.isBlankOrEmptyOrNull(dto.getEmail())) {
+            qw.like(VCorp::getEmail, dto.getEmail());
+        }
+        if (!StringHelper.isBlankOrEmptyOrNull(dto.getPhone())) {
+            qw.like(VCorp::getPhone, dto.getPhone());
+        }
+        if (!StringHelper.isBlankOrEmptyOrNull(dto.getNickname())) {
+            qw.like(VCorp::getNickname, dto.getNickname());
+        }
+
         IPage<VCorp> page = new Page<>(dto.getPageNum(), dto.getPageSize());
-        page = vCorpMapper.selectPage(page, qw);
-        return PageVO.from(page);
+        IPage<VCorp> result = vCorpMapper.selectPage(page, qw);
+        return PageVO.from(result);
     }
 
 }

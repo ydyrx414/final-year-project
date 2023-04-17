@@ -6,8 +6,6 @@
                 v-model="name"></el-input>
             <el-input style="width: 200px" placeholder="请输入提供体验时间" suffix-icon="el-icon-search" class="ml-5"
                 v-model="expTime"></el-input>
-            <el-input style="width: 200px" placeholder="请输入地址" suffix-icon="el-icon-search" class="ml-5"
-                v-model="address"></el-input>
             <el-button class="ml-5" type="primary" @click="load">搜索</el-button>
             <el-button type="warning" @click="reset">重置</el-button>
         </div>
@@ -170,6 +168,7 @@ export default {
                     pageNum: this.pageNum,
                     pageSize: this.pageSize,
                     name: this.name,
+                    expTime: this.expTime,
                     address: this.address,
                     time: this.time,
                     view: this.$props.view

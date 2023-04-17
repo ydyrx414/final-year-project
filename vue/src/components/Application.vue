@@ -24,7 +24,7 @@
             </template>
         </el-table-column>
 
-        <el-table-column fixed="right" v-if="user.type === 0" label="类型" width="180">
+        <el-table-column fixed="right" v-if="user.type === 0" label="操作" width="180">
                 <template #default="scope">
                     <el-button @click="_delete(scope.row.id)" type="danger">删除</el-button>
                 </template>
