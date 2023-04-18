@@ -68,10 +68,6 @@ const routes = [
     path: '/register',
     component: () => import(/* webpackChunkName: "about" */ '../views/Register.vue')
   }, 
-  {
-    path: '/article',
-    component: () => import(/* webpackChunkName: "about" */ '../views/app/Article.vue')
-  },
 
   {
     path: '/about',
@@ -99,8 +95,12 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ '../views/app/Received.vue')
       },
       {
-        path: 'video',
-        component: () => import(/* webpackChunkName: "about" */ '../views/app/Video.vue')
+        path: 'test',
+        component: () => import(/* webpackChunkName: "about" */ '../views/Test.vue')
+      },
+      {
+        path: 'article',
+        component: () => import(/* webpackChunkName: "about" */ '../views/app/Article.vue')
       },
     ]
   }
