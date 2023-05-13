@@ -4,11 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/*
- *
- * 接口统一返回包装类
- *
- * */
+/**
+ * 统一的接口返回结果
+ * 包含了响应码(code)，响应信息(msg)和数据(data)三个属性
+ * @param <T>
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

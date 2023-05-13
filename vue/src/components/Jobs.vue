@@ -10,7 +10,7 @@
             <el-button type="warning" @click="reset">重置</el-button>
         </div>
 
-        <el-button v-if="user.type !== 1" type="success" @click="onClickAddJob">添加职位</el-button>
+        <el-button v-if="user.type == 2" type="success" @click="onClickAddJob">添加职位</el-button>
         <el-divider />
 
 
@@ -21,7 +21,10 @@
             <el-table-column fixed="left" prop="name" label="职位名称" width="150"></el-table-column>
             <el-table-column prop="expTime" label="提供体验时间" width="180"></el-table-column>
             <el-table-column prop="corporationName" label="公司"></el-table-column>
-            <el-table-column prop="address" label="地址"></el-table-column>
+            <el-table-column prop="phone" label="电话" ></el-table-column>
+            <el-table-column prop="email" label="邮箱" ></el-table-column>
+            <el-table-column prop="address" label="地址" ></el-table-column>
+            
 
             <el-table-column v-if="$props.view != 1" fixed="right" label="操作" width="300" align="center">
                 <template slot-scope="scope">
@@ -74,9 +77,6 @@
 
         <el-dialog title="职位信息" :visible.sync="dialogFormVisible" width="30%">
             <el-form label-width="120px">
-                <el-form-item label="公司ID">
-                    <el-input :disabled="disableCorporationId" v-model="form.corporationId" autocomplete="off"></el-input>
-                </el-form-item>
                 <el-form-item label="职位名">
                     <el-input v-model="form.name" autocomplete="off"></el-input>
                 </el-form-item>
@@ -117,6 +117,7 @@ export default {
             dialogFormVisible: false,
             inviteVisible: false,
             address: "",
+            phone:"",
             user: getLoginResult().user
         }
     },
@@ -170,6 +171,7 @@ export default {
                     name: this.name,
                     expTime: this.expTime,
                     address: this.address,
+                    phone: this.phone,
                     time: this.time,
                     view: this.$props.view
                 }
@@ -182,13 +184,13 @@ export default {
             Request.post("/job/" + (this.form.id ?? ""), this.form).then(res => {
                 if (res) {
                     this.$notify.success({
-                        title: "保存成功"
+                        title: "添加成功"
                     })
                     this.dialogFormVisible = false
                     this.load()
                 } else {
                     this.$notify.error({
-                        title: "保存失败"
+                        title: "添加失败"
                     })
                 }
             })
@@ -198,12 +200,12 @@ export default {
             Request.delete("/job/" + id).then(res => {
                 if (res) {
                     this.$notify.success({
-                        title: "删除失败"
+                        title: "删除成功"
                     })
                     this.load()
                 } else {
                     this.$notify.success({
-                        title: "删除成功"
+                        title: "删除失败"
                     })
                 }
             })

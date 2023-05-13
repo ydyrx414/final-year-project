@@ -1,5 +1,8 @@
 package com.example.springboot.common;
 
+/**
+ * 定义了响应码常量
+ */
 public interface Constants {
     String CODE_200 = "200";//成功
     String CODE_500 = "500";//系统错误

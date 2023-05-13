@@ -13,7 +13,7 @@
                 <el-menu :default-active="'1'" class="el-menu-demo" mode="horizontal" router>
                     <el-menu-item index="/home">首页</el-menu-item>
                     <el-menu-item index="/article">就业体验相关介绍</el-menu-item>
-                    <el-menu-item v-if="user.type === 1" index="/test">职业性格测试</el-menu-item>
+                    <el-menu-item v-if="user?.type===1" index="/test">职业性格测试</el-menu-item>
                     <el-menu-item v-if="user" index="/jobs">职位列表</el-menu-item>
                     <el-menu-item v-if="user" index="/received"> 消息</el-menu-item>
                 </el-menu>
@@ -52,11 +52,12 @@
 
 <script>
 import { getLoginResult, setLoginResult } from "../utils/user"
+
 export default {
     name: "Front",
     data() {
         return {
-            user: getLoginResult()?.user
+            user: getLoginResult()?.user,
         }
     },
     created() {

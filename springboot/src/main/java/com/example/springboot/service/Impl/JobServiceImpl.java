@@ -54,7 +54,7 @@ public class JobServiceImpl implements IJobService {
 
         return PageVO.from(result, (job) -> {
             Tuple2<User, Corporation> c = userService.findCorporation(job.getCorporation());
-            return new JobVO(job, c.getA().getNickname(), c.getB().getAddress());
+            return new JobVO(job, c.getA().getNickname(), c.getB().getAddress(), c.getA().getPhone(),c.getA().getEmail());
         });
     }
 
@@ -69,7 +69,7 @@ public class JobServiceImpl implements IJobService {
         job.setName(dto.getName());
         mapper.insert(job);
         Tuple2<User, Corporation> c = userService.findCorporation(job.getCorporation());
-        return new JobVO(job, c.getA().getNickname(), c.getB().getAddress());
+        return new JobVO(job, c.getA().getNickname(), c.getB().getAddress(), c.getA().getPhone(),c.getA().getEmail());
     }
 
     @Override
@@ -83,7 +83,7 @@ public class JobServiceImpl implements IJobService {
         job.setExptime(dto.getExpTime());
         mapper.updateById(job);
         Tuple2<User, Corporation> c = userService.findCorporation(job.getCorporation());
-        return new JobVO(job, c.getA().getNickname(), c.getB().getAddress());
+        return new JobVO(job, c.getA().getNickname(), c.getB().getAddress(), c.getA().getPhone(),c.getA().getEmail());
     }
 
     @Override

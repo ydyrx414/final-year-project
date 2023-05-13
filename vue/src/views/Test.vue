@@ -29,6 +29,7 @@ import { onMounted, ref } from 'vue';
 import { getLoginResult, setLoginResult } from '../utils/user';
 import request from '../utils/request';
 const user = getLoginResult().user
+const type = getLoginResult().user.type;
 const form = ref({
     ...user,
     nature: "",

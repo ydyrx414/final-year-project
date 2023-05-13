@@ -17,8 +17,8 @@
       <el-form-item label="意向" v-if="user.type === 1">
         <el-input v-model="form.intention"></el-input>
       </el-form-item>
-      <el-form-item label="性格" v-if="user.type === 1">
-        <el-input v-model="form.nature"></el-input>
+      <el-form-item label="职业性格" v-if="user.type === 1">
+        <el-input v-model="form.nature" :disabled="true"></el-input>
       </el-form-item>
       <el-form-item label="专业" v-if="user.type === 1">
         <el-input v-model="form.subject"></el-input>
